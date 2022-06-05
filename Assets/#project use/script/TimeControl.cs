@@ -7,10 +7,12 @@ public class TimeControl : MonoBehaviour
 {
     public int timer = 5;
     public GameObject conclusionPanel;
+    public GameObject colaEffect0;
+    public GameObject colaEffect1;
+    public GameObject colaEffect2;
     // Start is called before the first frame update
     void Start()
     {
-        //InvokeRepeating("timerCalc", 1, 1);
         StartCoroutine("timerCalc");
     }
 
@@ -29,12 +31,19 @@ public class TimeControl : MonoBehaviour
             timer--;
             if(timer == 0)
             {
-                GameFlow.gameStateToConclusion();
-                conclusionPanel.SetActive(true);
-                Debug.Log("times up");
+                colaEffect0.SetActive(true);
+                colaEffect1.SetActive(true);
+                colaEffect2.SetActive(true);
+                StartCoroutine("turnOnConclusion");
                 break;
             }
         }
 
+    }
+    IEnumerator turnOnConclusion()
+    {
+        yield return new WaitForSecondsRealtime(2);
+        GameFlow.gameStateToConclusion();
+        conclusionPanel.SetActive(true);
     }
 }
