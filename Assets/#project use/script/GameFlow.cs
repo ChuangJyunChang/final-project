@@ -11,24 +11,12 @@ public class GameFlow : MonoBehaviour
         inGame,
         conclusion
     }
-
-
     public static gameState gameNowState = gameState.menu;
     // Start is called before the first frame update
 
     void Awake()
     {
         gameNowState = gameState.menu;
-    }
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public static void gameStateToInGame()

@@ -20,7 +20,15 @@ public class TimeControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.GetComponent<Text>().text = "0" + timer + "";
+        if(timer == 0)
+        {
+
+            this.GetComponent<Text>().text = "Time's up";
+        }
+        else
+        {
+            this.GetComponent<Text>().text = "0" + timer + "";
+        }
     }
 
     IEnumerator timerCalc()
@@ -31,9 +39,12 @@ public class TimeControl : MonoBehaviour
             timer--;
             if(timer == 0)
             {
-                colaEffect0.SetActive(true);
-                colaEffect1.SetActive(true);
-                colaEffect2.SetActive(true);
+                colaEffect0.GetComponent<colaControl>().enabled = true;
+                colaEffect1.GetComponent<colaControl>().enabled = true;
+                colaEffect2.GetComponent<colaControl>().enabled = true;
+                colaEffect0.GetComponent<Animator>().enabled = false;
+                colaEffect1.GetComponent<Animator>().enabled = false;
+                colaEffect2.GetComponent<Animator>().enabled = false;
                 StartCoroutine("turnOnConclusion");
                 break;
             }
@@ -42,8 +53,8 @@ public class TimeControl : MonoBehaviour
     }
     IEnumerator turnOnConclusion()
     {
-        yield return new WaitForSecondsRealtime(2);
         GameFlow.gameStateToConclusion();
+        yield return new WaitForSecondsRealtime(5);
         conclusionPanel.SetActive(true);
     }
 }
